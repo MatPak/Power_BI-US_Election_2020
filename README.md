@@ -1,4 +1,4 @@
-# 📊 Dokumentacja raportu analizy wyborów prezydenckich w USA 2020
+# 📊 Raport dotyczący wyborów prezydenckich w USA w 2020 roku
 <div align="center">
   
   ### [📈 Zobacz interaktywny raport 📈](https://app.powerbi.com/view?r=eyJrIjoiYzc4Y2Y5M2UtY2FjMC00NzY4LTkyYjMtOTdiYjFjMGM1MmNmIiwidCI6IjNkZmU5YWI2LTgxYmYtNDkxYy1iNjcwLTAxYzgyNGEwOWUxOSJ9)
@@ -11,7 +11,7 @@
 </div>
 
 ### Problem analityczny
-Celem projektu było stworzenie kompleksowego narzędzia analitycznego do analizy wyborów prezydenckich w USA 2020, które umożliwiałoby:
+Celem projektu było stworzenie narzędzia analitycznego do analizy wyborów prezydenckich w USA 2020, które umożliwiałoby:
 - Przegląd wyników wyborczych na poziomie stanów i hrabstw
 - Analizę korelacji między wynikami wyborów a czynnikami demograficznymi
 - Wizualizację zależności między poziomem wykształcenia, dochodami a preferencjami wyborczymi
@@ -56,8 +56,7 @@ Głównymi źródłami danych były pliki:
 1. **Czyszczenie danych**:
    - Standaryzacja nazw stanów i hrabstw
    - Konwersja formatów liczbowych
-   - Usunięcie duplikatów i obsługa wartości null
-   - Agregacja danych na poziomie stanów
+   - Usunięcie duplikatów
 
 2. **Tworzenie dodatkowych kolumn**:
    - Kategoryzacja poziomów wykształcenia (niski, średni, wysoki)
@@ -152,23 +151,6 @@ Raport składa się z 6 głównych stron:
 - Mniejszości etniczne: Latynosi (9,79%), Czarni (8,58%), inne rasy (7,48%)
 - Widoczne różnice preferencji wyborczych między grupami rasowymi
 
-### Rekomendacje
-
-#### 📋 Dla analityków politycznych
-- Pogłębienie analizy na poziomie hrabstw w kluczowych swing states
-- Zbadanie zmian preferencji wyborczych w porównaniu z poprzednimi wyborami
-- Analiza wpływu pandemii COVID-19 na frekwencję i preferencje wyborcze
-
-#### 🏬 Dla strategów kampanii
-- Dostosowanie komunikacji do specyfiki demograficznej poszczególnych stanów
-- Skupienie uwagi na grupach o niższej frekwencji wyborczej
-- Wykorzystanie danych o strukturze zatrudnienia i wykształcenia do lepszego targetowania przekazów
-
-#### 🚀 Dla rozwoju modelu
-- Włączenie danych z wcześniejszych wyborów dla analizy trendów
-- Dodanie danych o wydatkach kampanijnych
-- Rozbudowanie analizy o dane z mediów społecznościowych
-
 ## ⚙️ Aspekty techniczne
 
 ### Zastosowane funkcje DAX
@@ -203,16 +185,8 @@ High Education Level % =
     ) / [Total Population] * 100
 ```
 
-### Optymalizacja wydajności
-1. Zastosowanie schematu gwiazdy
-2. Tworzenie miar zagregowanych
-3. Efektywne wykorzystanie kontekstu filtra
-4. Utworzenie indeksów dla najczęściej filtrowanych kolumn
-
 ## 📝 Podsumowanie
 
-Projekt dostarcza kompleksowej analizy wyborów prezydenckich USA 2020, umożliwiając badanie wyników oraz ich korelacji z różnorodnymi czynnikami demograficznymi i ekonomicznymi. Interaktywny charakter raportu pozwala użytkownikom na samodzielne eksplorowanie danych i wyciąganie wniosków.
+Projekt dostarcza kompleksowej analizy wyborów prezydenckich w USA w 2020 roku, umożliwiając badanie wyników oraz ich korelacji z różnorodnymi czynnikami demograficznymi i ekonomicznymi. Interaktywny charakter raportu pozwala użytkownikom na samodzielne eksplorowanie danych i wyciąganie wniosków.
 
-Analiza ujawnia interesujące zależności między poziomem wykształcenia, dochodami, strukturą zatrudnienia i składem rasowym a preferencjami wyborczymi. Raport stanowi cenne narzędzie dla analityków politycznych, badaczy, dziennikarzy oraz wszystkich zainteresowanych zrozumieniem dynamiki amerykańskich wyborów prezydenckich.
-
-Przyszłe rozwinięcia projektu mogłyby obejmować analizę historyczną trendów wyborczych, modelowanie predykcyjne na potrzeby przyszłych wyborów oraz pogłębione analizy konkretnych grup demograficznych i geograficznych.
+Analiza ujawnia zależności między poziomem wykształcenia, dochodami, strukturą zatrudnienia i składem rasowym a preferencjami wyborczymi.
