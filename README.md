@@ -1,4 +1,5 @@
-# Raport dotyczący wyborów prezydenckich w USA w 2020 roku
+
+# 📑 Raport dotyczący wyborów prezydenckich w USA w 2020 roku
 
 <div align="center">
 
