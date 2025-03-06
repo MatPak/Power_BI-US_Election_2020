@@ -38,7 +38,7 @@ Głównymi źródłami danych były pliki:
 
 2. **Estimated Eligible Voters.xlsx** - dane o liczbie uprawnionych do głosowania
 
-3. **Głosy elektorskie.xlsx** - informacje o podziale głosów elektorskich
+3. **Electoral voices.xlsx** - informacje o podziale głosów elektorskich
 
 ### Najważniejsze zmienne w zbiorze danych
 - county, state - nazwy hrabstw i stanów
@@ -62,30 +62,66 @@ Głównymi źródłami danych były pliki:
    - Kategoryzacja poziomów wykształcenia (niski, średni, wysoki)
    - Wyliczenie frekwencji wyborczej
    - Uproszczenie kategorii rasowych dla celów wizualizacji
+   - Dodanie kolumny Index
 
-### Model danych
-Model zawiera następujące główne tabele:
+## 5. Model danych
 
-#### 🗳️ US_Election (tabela faktów)
-- Dane wyborcze
-- Wskaźniki demograficzne
-- Dane ekonomiczne
+### Struktura modelu
+Model został zbudowany w architekturze gwiazdy, składającej się z następujących tabel:
 
-#### 🏛️ States (tabela wymiarów)
-- State
+#### 📊 Information (tabela faktów)
+- 2020 Democrat vote % i raw
+- 2020 Republican vote % i raw
+- 2020 other vote % i raw
+- State Population vote %
+
+#### 📚 Education (tabela wymiarów)
+- Associates Degree
+- Bachelors Degree
+- Graduate or professional degree
+- High School graduate and equivalent
+- Population with 9th to 12th grade education, no diploma
+- Population with less than 9th grade education
+- Some College No Degree
+
+#### 🗳️ Electorate Votes (tabela wymiarów)
 - Electoral Votes
-- Region
+- Result
+- State
 
-#### 📚 Education_Levels (tabela wymiarów)
-- Education Level Group
-- Description
+#### 👥 Race (tabela wymiarów)
+- American Indian and Alaska Native percentage
+- Asian percentage 
+- Black percentage
+- Hispanic or Latino percentage
+- Native Hawaiian and Other Pacific Islander percentage
+- Some Other Race percentage
+- Two or More Races percentage
+- White percentage
 
-#### 👥 Race_Categories (tabela wymiarów)
-- Race Category
-- Description
+#### 💼 Job (tabela wymiarów)
+- Percentage engaged in Management, business, science, and arts occupations
+- Percentage engaged in Resources and Construction
+- Percentage engaged in Sales and Office
+- Percentage engaged in Service Occupations
+- Percentage engaged in Transportation
 
-Model wykorzystuje schemat gwiazdy dla optymalnej wydajności i elastyczności analitycznej.
+#### 💰 Income and Income Inequality
+- Area in square km
+- Density per square km
+- Gini Index
+- Median income (dollars)
+- Mean income (dollars)
+- Total Population
 
+#### 🗳️ Estimated Eligible Voters
+- Estimated Eligible Voters (OUM)
+- State
+
+### Relacje w modelu
+- Relacje między tabelami oparte są na wspólnych polach, takich jak stan czy hrabstwo
+- Wykorzystano relacje jeden-do-wielu dla optymalnej wydajności zapytań
+- Zastosowano jednokierunkowe filtrowanie od tabel wymiarów do tabeli faktów
 ## 📈 Wizualizacje i analizy
 
 ### Struktura raportu
@@ -156,33 +192,37 @@ Raport składa się z 6 głównych stron:
 ### Zastosowane funkcje DAX
 
 ```dax
-Total Population = SUM(US_Election[Total Population])
+Total Population = CALCULATE(SUM('Income and income inequality'[Total Population]))
 
-Total Votes = SUM(US_Election[2020 Democrat vote raw]) + SUM(US_Election[2020 Republican vote raw]) + SUM(US_Election[2020 other vote raw])
+Number of voters = 
+CALCULATE(
+    SUM('Information'[2020 Democrat vote raw]) 
+    + 
+    SUM('Information'[2020 Republican vote raw])
+    +
+    SUM('Information'[2020 other vote raw]))
 
-Voter Turnout % = DIVIDE([Total Votes], [Estimated Eligible Voters], 0) * 100
+Voter turnout = 
+DIVIDE([Number of voters],SUM('Estimated Eligible Voters'[Estimated Eligible Voters (CVAP)]))
 
-Low Education Level % = 
-    SUMX(
-        US_Election,
-        VALUE(SUBSTITUTE(US_Election[Population with less than 9th grade education], ",", "")) +
-        VALUE(SUBSTITUTE(US_Election[Population with 9th to 12th grade education, no diploma], ",", ""))
-    ) / [Total Population] * 100
+Low level of education =
+CALCULATE (
+    AVERAGE ( Education[Population with 9th to 12th grade education, no diploma] )
+        + AVERAGE ( Education[Population with less than 9th grade education] )
+)
 
-Medium Education Level % = 
-    SUMX(
-        US_Election,
-        VALUE(SUBSTITUTE(US_Election[High School graduate and equivalent], ",", "")) +
-        VALUE(SUBSTITUTE(US_Election[Some College,No Degree], ",", "")) +
-        VALUE(SUBSTITUTE(US_Election[Associates Degree], ",", ""))
-    ) / [Total Population] * 100
+Medium Education Level =
+CALCULATE (
+    AVERAGE ( Education[High School graduate and equivalent] )
+        + AVERAGE ( Education[Some College,No Degree] )
+)
 
-High Education Level % = 
-    SUMX(
-        US_Election,
-        VALUE(SUBSTITUTE(US_Election[Bachelors Degree], ",", "")) +
-        VALUE(SUBSTITUTE(US_Election[Graduate or professional degree], ",", ""))
-    ) / [Total Population] * 100
+High Education Level =
+CALCULATE (
+    AVERAGE ( Education[Associates Degree] )
+        + AVERAGE ( Education[Bachelors Degree] )
+        + AVERAGE ( Education[Graduate or professional degree] )
+)
 ```
 
 ## 📝 Podsumowanie
