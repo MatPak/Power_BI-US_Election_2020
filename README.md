@@ -5,7 +5,7 @@
 
   
 
-  ### [📈 Zobacz interaktywny raport 📈](https://app.powerbi.com/view?r=eyJrIjoiYzc4Y2Y5M2UtY2FjMC00NzY4LTkyYjMtOTdiYjFjMGM1MmNmIiwidCI6IjNkZmU5YWI2LTgxYmYtNDkxYy1iNjcwLTAxYzgyNGEwOWUxOSJ9)
+  ### [📈 Zobacz interaktywny raport 📈](https://app.powerbi.com/view?r=eyJrIjoiYjZiYWZlMDQtM2ZmYy00MDJlLTlmMmQtZDYwODBmYTZkZTc5IiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9)
 
   
 
