@@ -15,10 +15,6 @@
 
   
 
-  ### Raport utworzony: 11.2024
-
-  
-
 </div>
 
 
